@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chest X-ray Pneumonia Detect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="middle-center-5">
+    <h1>Upload your X-ray</h1>
+    <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="result" style="margin-top:20px;"></div>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            const resultDiv = document.getElementById('result');
+            if (result.label) {
+                resultDiv.innerHTML = `<p><strong>Prediction:</strong> ${result.label}</p><p><strong>Confidence:</strong> ${result.confidence}%</p>`;
+            } else {
+                resultDiv.innerHTML = `<p style="color:red;">Error: ${result.error}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
