@@ -30,9 +30,6 @@ project/
 ├── uploads/ # Temp folder for uploaded images
 └── README.md
 
-yaml
-Copy
-Edit
 
 ---
 
@@ -47,13 +44,11 @@ Edit
 
 You can install dependencies using:
 
-```bash
+
 pip install -r requirements.txt
 Example requirements.txt:
 
-text
-Copy
-Edit
+
 torch
 torchvision
 flask
